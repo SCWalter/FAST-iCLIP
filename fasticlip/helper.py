@@ -175,8 +175,11 @@ def run_iclipro(samfiles):
 	
 	for samfile in samfiles:
 		bamfile_sort = samfile.replace('.sam','_sorted.bam') 
+		cmd_0 = "samtools view -Sb {} > {}".format(samfile, bamfile_sort)
+		if cfg.verbose: log(cmd_0)
+		os.system(cmd_0)
 	
-		cmd_1 = "iCLIPro -r 50 -b 300 -g \"L18:18,L19:19,L20:20,L21:21,L22:22,L23:23,L24:24,L25:25,L26:26,L27:27,L28:28,L29:29,L30:30,L31:31,L32:32,L33:33,L34:34,L35:35,L36:36,L37:37,L38:38,L39:39,R:42\" -p \"L18-R,L19-R,L20-R,L21-R,L22-R,L23-R,L24-R,L25-R,L26-R,L27-R,L28-R,L29-R,L30-R,L31-R,L32-R,L33-R,L34-R,L35-R,L36-R,L37-R,L38-R,L39-R\" -o {} {} > {}".format(bamfile_sort + "_iclipro", samfile, bamfile_sort + "_iclipro_stats.txt")
+		cmd_1 = "iCLIPro -r 50 -b 300 -g \"L18:18,L19:19,L20:20,L21:21,L22:22,L23:23,L24:24,L25:25,L26:26,L27:27,L28:28,L29:29,L30:30,L31:31,L32:32,L33:33,L34:34,L35:35,L36:36,L37:37,L38:38,L39:39,R:42\" -p \"L18-R,L19-R,L20-R,L21-R,L22-R,L23-R,L24-R,L25-R,L26-R,L27-R,L28-R,L29-R,L30-R,L31-R,L32-R,L33-R,L34-R,L35-R,L36-R,L37-R,L38-R,L39-R\" -o {} {} > {}".format(bamfile_sort + "_iclipro", bamfile_sort, bamfile_sort + "_iclipro_stats.txt")
 	
 		if cfg.verbose: log(cmd_1)
 		rt = os.system(cmd_1)
