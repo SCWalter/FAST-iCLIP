@@ -9,6 +9,7 @@ import pandas as pd
 from collections import defaultdict
 from operator import itemgetter
 import matplotlib as mpl
+mpl.use('Agg')
 import matplotlib.pyplot as plt
 from optparse import OptionParser
 mpl.rcParams['savefig.dpi'] = 2 * mpl.rcParams['savefig.dpi']
