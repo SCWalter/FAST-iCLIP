@@ -241,12 +241,12 @@ def main():
 	cmd = "sort -k1,1 -k2,2n {} > {}".format(negAndPosMerged_output, negAndPosMerged)
 	if cfg.verbose: log(cmd)
 	os.system(cmd)
-	os.system("rm {}".format(genome_star_output))
+	os.system("rm {}".format(negAndPosMerged_output))
 	fileCat(negAndPosMerged_output + '_stats', [posMerged + '_stats', negMerged + '_stats'])
 	cmd = "sort -k1,1 -k2,2n {} > {}".format(negAndPosMerged_output + '_stats', negAndPosMerged + '_stats')
 	if cfg.verbose: log(cmd)
 	os.system(cmd)
-	os.system("rm {}".format(genome_star_output + '_stats'))
+	os.system("rm {}".format(negAndPosMerged_output + '_stats'))
 
 	log("Nonrepeat RT stop isolation.")
 	gen_norepeat_bed = remove_blacklist_retro(gen_bed, blacklistregions, repeatregions)
@@ -266,12 +266,12 @@ def main():
 	cmd = "sort -k1,1 -k2,2n {} > {}".format(negAndPosMerged_output, negAndPosMerged)
 	if cfg.verbose: log(cmd)
 	os.system(cmd)
-	os.system("rm {}".format(genome_star_output))
+	os.system("rm {}".format(negAndPosMerged_output))
 	fileCat(negAndPosMerged_output + '_stats', [posMerged + '_stats', negMerged + '_stats'])
 	cmd = "sort -k1,1 -k2,2n {} > {}".format(negAndPosMerged_output + '_stats', negAndPosMerged + '_stats')
 	if cfg.verbose: log(cmd)
 	os.system(cmd)
-	os.system("rm {}".format(genome_star_output + '_stats'))
+	os.system("rm {}".format(negAndPosMerged_output + '_stats'))
 
 	# 3. Process genic RT stops
 	
