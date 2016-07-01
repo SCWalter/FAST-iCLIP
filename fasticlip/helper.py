@@ -645,7 +645,7 @@ def get_gene_counts(bedFile):
 	bf.columns=['Chr','Start','Stop','CLIPper_name','Q','Strand']
 	bf['geneName']=bf['CLIPper_name'].apply(lambda x: x.split('_')[0])
 	geneCounts=bf.groupby('geneName').size()
-	geneCounts.sort(ascending=False)
+	geneCounts.sort_values(ascending=False, inplace=True)
 	return geneCounts
 
 def getSnoRNAreads(negAndPosMerged,snoRNAindex):
@@ -670,7 +670,7 @@ def countRemainingGeneTypes(remaining):
 			# *** THIS MAY DEPEND UPON THE VERSION OF CLIPPER USED ***
 			bf['geneName']=bf['CLIPper_winaName'].apply(lambda x: x.split('_')[0])
 			geneCounts=bf.groupby('geneName').size()
-			geneCounts.sort(ascending=False) 
+			geneCounts.sort_values(ascending=False, inplace=True) 
 						
 			head,fname=os.path.split(bedFile)
 			geneType=fname.split("_")[1]
@@ -867,7 +867,7 @@ def plot_BoundGeneTypes():
 		gName=boundGenes.split('_')[-1]
 		record.loc[gName,'genesBound']=glist.shape[0]
 		record.loc[gName,'totalReads']=glist['Count'].sum()
-	record.sort('genesBound',inplace=True)
+	record.sort_values(by='genesBound',inplace=True)
 	outfilepathToSave=cfg.outfilepath + '/PlotData_ReadAndGeneCountsPerGenetype'
 	record.to_csv(outfilepathToSave)
 	ind = np.arange(record.shape[0]) + 0.5
