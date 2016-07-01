@@ -156,7 +156,7 @@ def run_samtools(samfiles, flags=""):
 		out_bedfiles.append(bedfile)
 				
 		cmd_1 = "cat {} | samtools view {} -Su - -o - | samtools sort - {}".format(samfile, flags, bamfile_sort)
-		cmd_2 = "bamToBed -i {} > {}".format(bamfile_sort + '.bam', bedfile)
+		cmd_2 = "bamToBed -i {} | sort -k1,1 -k2,2n > {}".format(bamfile_sort + '.bam', bedfile)
 		if cfg.verbose: log(cmd_1)
 		os.system(cmd_1)
 		if cfg.verbose: log(cmd_2)
