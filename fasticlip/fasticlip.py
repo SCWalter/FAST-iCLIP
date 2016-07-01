@@ -233,11 +233,20 @@ def main():
 	posMerged = cfg.outfilepath+cfg.sampleName+'_repeat_positivereads.mergedRT'
 	negMerged = cfg.outfilepath+cfg.sampleName+'_repeat_negativereads.mergedRT'
 	negAndPosMerged = cfg.outfilepath+cfg.sampleName+'_threshold=%s'%threshold_rep+'_repeat_allreads.mergedRT.bed'
+	negAndPosMerged_output = negAndPosMerged + '.output'
 	
 	mergeRT(positiveRTstop_rep, posMerged, posMerged + '_stats', minpass_rep, threshold_rep, expand, '+')
 	mergeRT(negativeRTstop_rep, negMerged, negMerged + '_stats', minpass_rep, threshold_rep, expand, '-')
-	fileCat(negAndPosMerged, [posMerged, negMerged])
-	fileCat(negAndPosMerged + '_stats', [posMerged + '_stats', negMerged + '_stats'])
+	fileCat(negAndPosMerged_output, [posMerged, negMerged])
+	cmd = "sort -k1,1 -k2,2n {} > {}".format(negAndPosMerged_output, negAndPosMerged)
+	if cfg.verbose: log(cmd)
+	os.system(cmd)
+	os.system("rm {}".format(genome_star_output))
+	fileCat(negAndPosMerged_output + '_stats', [posMerged + '_stats', negMerged + '_stats'])
+	cmd = "sort -k1,1 -k2,2n {} > {}".format(negAndPosMerged_output + '_stats', negAndPosMerged + '_stats')
+	if cfg.verbose: log(cmd)
+	os.system(cmd)
+	os.system("rm {}".format(genome_star_output + '_stats'))
 
 	log("Nonrepeat RT stop isolation.")
 	gen_norepeat_bed = remove_blacklist_retro(gen_bed, blacklistregions, repeatregions)
@@ -249,10 +258,20 @@ def main():
 	posMerged = cfg.outfilepath+cfg.sampleName+'_%s_positivereads.mergedRT'%index_tag
 	negMerged = cfg.outfilepath+cfg.sampleName+'_%s_negativereads.mergedRT'%index_tag
 	negAndPosMerged = cfg.outfilepath+cfg.sampleName+'_threshold=%s'%threshold_nr+'_%s_allreads.mergedRT.bed'%index_tag
+	negAndPosMerged_output = negAndPosMerged + '.output'
+	
 	mergeRT(positiveRTstop, posMerged, posMerged + '_stats', minpass_nr, threshold_nr, expand, '+')
 	mergeRT(negativeRTstop, negMerged, negMerged + '_stats', minpass_nr, threshold_nr, expand, '-')
-	fileCat(negAndPosMerged,[posMerged,negMerged])
-	fileCat(negAndPosMerged + '_stats', [posMerged + '_stats', negMerged + '_stats'])
+	fileCat(negAndPosMerged_output,[posMerged,negMerged])
+	cmd = "sort -k1,1 -k2,2n {} > {}".format(negAndPosMerged_output, negAndPosMerged)
+	if cfg.verbose: log(cmd)
+	os.system(cmd)
+	os.system("rm {}".format(genome_star_output))
+	fileCat(negAndPosMerged_output + '_stats', [posMerged + '_stats', negMerged + '_stats'])
+	cmd = "sort -k1,1 -k2,2n {} > {}".format(negAndPosMerged_output + '_stats', negAndPosMerged + '_stats')
+	if cfg.verbose: log(cmd)
+	os.system(cmd)
+	os.system("rm {}".format(genome_star_output + '_stats'))
 
 	# 3. Process genic RT stops
 	
