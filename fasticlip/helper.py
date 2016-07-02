@@ -1350,14 +1350,14 @@ def clean_up():
 	
 	os.system("mkdir RawData_and_Stats")
 	os.system("mv *stats* *.bam *Log.final.out RawData_and_Stats")
-	os.system("mv runLog rawdata_and_stats")
+	os.system("mv runLog RawData_and_Stats")
 	
 	os.system("mkdir bedfiles")
 	os.system("mv *.mergedRT.bed bedfiles")
 	os.system("mv *.bw *.bedgraph *_cleaned_sorted.bed *_centerCoord.bed bedfiles")
 	if cfg.run_clipper:
-		os.system("mv *_allreads.mergedRT_CLIP_clusters_lowFDRreads* rawdata_and_stats")
-		os.system("mv *.mergedRT_CLIP_clusters.bed rawdata_and_stats")
+		os.system("mv *_allreads.mergedRT_CLIP_clusters_lowFDRreads* RawData_and_Stats")
+		os.system("mv *.mergedRT_CLIP_clusters.bed RawData_and_Stats")
 	else:
 		os.system("mv *_ens_annotated.bed bedfiles")
 
@@ -1368,5 +1368,5 @@ def clean_up():
 	os.system("mkdir todelete")
 	os.system("mv *.* todelete")
 	os.system("mv clipGenes_* todelete")
-	os.system("mv rawdata_and_stats/runLog ./")
+	os.system("mv RawData_and_Stats/runLog ./")
 	
