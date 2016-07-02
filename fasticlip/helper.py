@@ -1342,14 +1342,14 @@ def clean_up():
 	os.system("mkdir ReadsPerGene")
 	os.system("mv PlotData_ReadsPerGene* ReadsPerGene")
 	
-	os.system("mkdir PlotData_Other")
-	os.system("mv PlotData* PlotData_Other")
+	os.system("mkdir plotdata_other")
+	os.system("mv PlotData* plotdata_other")
 	
 	os.system("mkdir ProteinCoding")
 	os.system("mv clipGenes_proteinCoding* ProteinCoding")
 	
-	os.system("mkdir rawdata_and_stats")
-	os.system("mv *stats* *.bam *Log.final.out rawdata_and_stats")
+	os.system("mkdir RawData_and_Stats")
+	os.system("mv *stats* *.bam *Log.final.out RawData_and_Stats")
 	os.system("mv runLog rawdata_and_stats")
 	
 	os.system("mkdir bedfiles")
