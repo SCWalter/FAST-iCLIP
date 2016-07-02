@@ -1300,11 +1300,11 @@ def plot_snorna(snorna_file):
 
 def getncRNABindingFrac(type_specific):
 	# 5' position on the negative strand is snoRNA stop coordinate.
-	neg_data=type_specific[type_specific['Strand']=='-']
+	neg_data=type_specific[type_specific['Strand']=='-'].copy()
 	neg_data['diff']=np.abs(neg_data['Gene End (bp)']-neg_data['RT_stop']) 
 	neg_data['frac']=neg_data['diff']/(neg_data['Gene End (bp)']-neg_data['Gene Start (bp)'])
 	# 5' position on the positive strand is snoRNA start coordinate.
-	pos_data=type_specific[type_specific['Strand']=='+']
+	pos_data=type_specific[type_specific['Strand']=='+'].copy()
 	pos_data['diff']=np.abs(pos_data['Gene Start (bp)']-pos_data['RT_stop'])
 	pos_data['frac']=pos_data['diff']/(pos_data['Gene End (bp)']-pos_data['Gene Start (bp)'])
 	DF_ncRNAProfile=pd.concat([neg_data,pos_data])
