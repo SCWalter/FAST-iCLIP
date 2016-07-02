@@ -411,7 +411,7 @@ def main():
 	for ix in repeatAnnotDF.index:
 		end=repeatAnnotDF.loc[ix,'IndexEnd']
 		repName=repeatAnnotDF.loc[ix,'Name']
-		gene_hits=rep[(rep['RT_stop']<int(repeatAnnotDF.loc[ix,'IndexEnd']))&(rep['RT_stop']>int(repeatAnnotDF.loc[ix,'IndexStart']))]
+		gene_hits=rep[(rep['RT_stop']<int(repeatAnnotDF.loc[ix,'IndexEnd']))&(rep['RT_stop']>int(repeatAnnotDF.loc[ix,'IndexStart']))].copy()
 		gene_hits['Repeat_End']=repeatAnnotDF.loc[ix,'IndexEnd']
 		gene_hits['Repeat_Start']=repeatAnnotDF.loc[ix,'IndexStart']
 		outfilepathToSave=cfg.outfilepath + '/PlotData_RepeatRNAreads_%s'%repName
