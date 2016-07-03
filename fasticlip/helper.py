@@ -115,7 +115,7 @@ def run_mapping(processed_reads, repeat_index, retro_index, trna_index, star_ind
 		log("Mapping {} to retroviral".format(infastq))
 		#cmd = "bowtie2 -p 8 -x {} {} --un {} -S {} > {} 2>&1".format(retro_index, rep_unmapped, retro_unmapped, retro_mapped, retro_mapped + '_stats.txt')
 		#print genome_star_prefix + "_retro", genome_star_prefix + "_retroAligned.out.sam"
-		cmd = "STAR --genomeDir {} --runThreadN 8 --genomeLoad LoadAndKeep --readFilesIn {} --outFileNamePrefix {} --alignEndsType EndToEnd --outFilterMismatchNoverLmax {} --outReadsUnmapped Fastx".format(retro_index, rep_unmapped, genome_star_prefix + "_retro", star_ratio)
+		cmd = "STAR --genomeDir {} --runThreadN 8 --limitOutSJcollapsed 2000000 --limitIObufferSize to 300000000 --genomeLoad LoadAndKeep --readFilesIn {} --outFileNamePrefix {} --alignEndsType EndToEnd --outFilterMismatchNoverLmax {} --outReadsUnmapped Fastx".format(retro_index, rep_unmapped, genome_star_prefix + "_retro", star_ratio)
 
 		if cfg.verbose: log(cmd)
 		os.system(cmd)
@@ -136,7 +136,7 @@ def run_mapping(processed_reads, repeat_index, retro_index, trna_index, star_ind
 		
 		#cmd = "bowtie2 -p 8 -x {} {} -S {} > {} 2>&1".format(genome_index, trna_unmapped, genome_mapped, genome_mapped + '_stats.txt')
 		log("Mapping {} to genome".format(infastq))
-		cmd = "STAR --genomeDir {} --runThreadN 8 --genomeLoad LoadAndKeep --readFilesIn {} --outFileNamePrefix {} --alignEndsType EndToEnd --outFilterMismatchNoverLmax {}".format(star_index, trna_unmapped, genome_star_prefix, star_ratio)
+		cmd = "STAR --genomeDir {} --runThreadN 8 --limitOutSJcollapsed 2000000 --limitIObufferSize to 300000000 --genomeLoad LoadAndKeep --readFilesIn {} --outFileNamePrefix {} --alignEndsType EndToEnd --outFilterMismatchNoverLmax {}".format(star_index, trna_unmapped, genome_star_prefix, star_ratio)
 		if cfg.verbose: log(cmd)
 		os.system(cmd)
 		os.system("mv {} {}".format(genome_star_output, genome_mapped))
