@@ -659,7 +659,7 @@ def countSnoRNAs(bedFile_sno):
 	bf=pd.DataFrame(pd.read_table(bedFile_sno,header=None))
 	bf.columns=['Chr','Start','End','CLIPper_name','Q','Strand','Chr_snoRNA','Start_snoRNA','Stop_snoRNA','name_snoRNA','Type','strand_snoRNA']
 	geneCounts=bf.groupby('name_snoRNA').size()
-	geneCounts.sort(ascending=False)
+	geneCounts.sort_values(ascending=False, inplace=True)
 	return geneCounts
 
 def countRemainingGeneTypes(remaining):
@@ -1231,11 +1231,11 @@ def plot_rDNA(start18s, end18s, start5s, end5s, start28s, end28s, rRNAend):
 
 def getBindingFrac(type_specific):
 	# 5' position on the negative strand is snoRNA stop coordinate.
-	neg_data=type_specific[type_specific['strand_snoRNA']=='-']
+	neg_data=type_specific[type_specific['strand_snoRNA']=='-'].copy()
 	neg_data['diff']=np.abs(neg_data['Stop_snoRNA']-neg_data['Start']) 
 	neg_data['frac']=neg_data['diff']/(neg_data['Stop_snoRNA']-neg_data['Start_snoRNA'])
 	# 5' position on the positive strand is snoRNA start coordinate.
-	pos_data=type_specific[type_specific['strand_snoRNA']=='+']
+	pos_data=type_specific[type_specific['strand_snoRNA']=='+'].copy()
 	pos_data['diff']=np.abs(pos_data['Start_snoRNA']-pos_data['Start'])
 	pos_data['frac']=pos_data['diff']/(pos_data['Stop_snoRNA']-pos_data['Start_snoRNA'])
 	DF_snoProfile=pd.concat([neg_data,pos_data])
