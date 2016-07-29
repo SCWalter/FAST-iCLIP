@@ -155,10 +155,11 @@ How the pipeline works
   - This represents the cross-link site in the initial experiment.
 
 6. For each strand, we merge RT stops between replicates. 
-  - This means that at RT stop position must be conserved between replicates. Conservation level is set by "-tr" option for repeat RT stops and by "-tn" for non-repeart stops.
+  - This means that at RT stop position must be conserved between replicates.
   - If conserved, we count the total number of instances of the RT position for both replicates.
   - If the total counts exceed a specified threshold, then we record these RT stops.
-  - Finally, we re-generate a "read" around the RT stop using the passed parameter "expand," 
+  - Conservation level and threshold are set by "-tr" option for repeat RT stops and by "-tn" for non-repeart stops.
+  - Finally, we re-generate arbitrarily a "read" around the RT stop using the passed parameter "expand".
   - A "read" around the RT stop is required for downstream processing.
 
 7. Expanded reads from RT stop merging are passed to CLIPper, a peak calling algorithm.
