@@ -151,7 +151,7 @@ How the pipeline works
   - We only keep reads that are unique and perfectly aligned.
   - We then remove reads that map to blacklist or repeat regions.
 
-5. After mapping, we isolate the 5' position (RT) stop for both positive and negative strand reads.
+5. After mapping, we isolate the 5' position (RT) stop for both positive and negative (end-1) strand reads.
   - This represents the cross-link site in the initial experiment.
 
 6. For each strand, we merge RT stops between replicates. 
