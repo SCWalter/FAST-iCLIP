@@ -163,6 +163,7 @@ How the pipeline works
   - A "read" around the RT stop is required for downstream processing.
 
 7. Expanded reads from RT stop merging are passed to CLIPper, a peak calling algorithm.
+  - IMPORTANT! Current default does NOT run CLIPper. Instead, it gives a list of genes identified.
   - CLIPper returns a bed-like file format with window coordinates, reads counted per window, etc.
   - We use these windows to extract "low FDR" reads from the total set of reads passed to CLIPper.
   - We then make bedGraph and BigWig files from this complete pool of "low FDR" reads, allowing easy visualization. 
