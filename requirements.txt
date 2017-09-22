@@ -1,6 +1,6 @@
 # Some of the version defination is just for compatibility on my own system. 
 
-# channels : defaults, r, bioconda
+# channels : defaults, conda-forge, bioconda, r
 
 python ==2.7.12
 ipython

@@ -4,7 +4,7 @@ set -e
 
 CUR_DIR=$(pwd)
 
-conda create -n fast_iclip --file requirements.txt -y -c defaults -c bioconda -c r
+conda create -n fast_iclip --file requirements.txt -y -c defaults -c conda-forge -c bioconda -c r
 
 ############ install additional packages
 
