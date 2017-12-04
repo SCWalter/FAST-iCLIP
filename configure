@@ -30,12 +30,6 @@ else
 	echo >&2 "iCLIPro must be installed.  Aborting."; exit 1
 fi
 
-if $(type clipper >/dev/null 2>&1); then	
-	echo "CLIPper installed"
-else
-	echo >&2 "CLIPper must be installed.  Aborting."; exit 1
-fi
-
 if $(type bedtools >/dev/null 2>&1); then
 	echo "bedtools installed"
 else 
@@ -63,9 +57,9 @@ fi
 # 2. Downloading genome files
 
 echo "Downloading and unzipping hg19 and mm9 genome files"
-wget https://s3.amazonaws.com/changlabguest/FAST-iCLIP/docs.tar.gz
+wget https://s3.amazonaws.com/changlabguest/FAST-iCLIP/docs_new.tar.gz
 mkdir docs
-tar xvzf docs.tar.gz -C docs && rm -f docs.tar.gz
+tar xvzf docs_new.tar.gz -C docs && rm -f docs_new.tar.gz
 
 # 3. Downloading example files
 wget https://s3.amazonaws.com/changlabguest/FAST-iCLIP/rawdata.tar.gz
