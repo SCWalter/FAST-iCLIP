@@ -28,15 +28,15 @@ cd $CUR_DIR
 # 2. Downloading genome files
 # "docs_lite.tar.gz" is not publicly available
 echo "Downloading and unzipping hg19 and mm9 genome files"
-wget https://s3.amazonaws.com/changlabguest/FAST-iCLIP/docs_new.tar.gz
-mkdir docs
-tar xvzf docs_new.tar.gz -C docs && rm -f docs_new.tar.gz
+wget https://s3.amazonaws.com/changlabguest/FAST-iCLIP/docs_lite.tar.gz
+mkdir -p docs
+tar xvzf docs_lite.tar.gz -C docs && rm -f docs_lite.tar.gz
 
 # 3. Downloading example files
 wget https://s3.amazonaws.com/changlabguest/FAST-iCLIP/rawdata.tar.gz
-mkdir rawdata
+mkdir -p rawdata
 tar xvzf rawdata.tar.gz -C rawdata && rm -f rawdata.tar.gz
-mkdir results
+mkdir -p results
 
 echo === Installing dependencies successfully done. ===
 
@@ -44,23 +44,26 @@ echo === Installing dependencies successfully done. ===
 python setup.py install --record files.txt
 
 # 5. save environment variables
-#cd $CONDA_PREFIX
-#mkdir -p ./etc/conda/activate.d
-#cat > ./etc/conda/activate.d/env_vars.sh <<EOF
-##!/bin/sh
-#
-#export FASTICLIP_PATH=~/.local/bin/
-#export PATH=$FASTICLIP_PATH:$PATH
-#EOF
-#chmod +x ./etc/conda/activate.d/env_vars.sh
-#mkdir -p ./etc/conda/deactivate.d
-#cat > ./etc/conda/deactivate.d/env_vars.sh <<EOF
-##!/bin/sh
-#
-#unset FASTICLIP_PATH
-#unset PATH
-#EOF
-#chmod +x ./etc/conda/deactivate.d/env_vars.sh
+echo "=== Add/Remove FAST-iCLIP root directory in PATH by Conda ==="
+cd $CONDA_PREFIX
+mkdir -p ./etc/conda/activate.d
+cat > ./etc/conda/activate.d/env_vars.sh <<EOF
+#!/bin/sh
+
+export FASTICLIP_PATH=$CUR_DIR
+export OLD_PATH=\$PATH
+export PATH=\$FASTICLIP_PATH:\$PATH
+EOF
+chmod +x ./etc/conda/activate.d/env_vars.sh
+mkdir -p ./etc/conda/deactivate.d
+cat > ./etc/conda/deactivate.d/env_vars.sh <<EOF
+#!/bin/sh
+
+export PATH=\$OLD_PATH
+unset OLD_PATH
+unset FASTICLIP_PATH
+EOF
+chmod +x ./etc/conda/deactivate.d/env_vars.sh
 cd $CUR_DIR
 
 source deactivate
